@@ -28,10 +28,10 @@ public class UserInterface
                     this.addMovie();
                     break;
                 case "2":
-                    // this.showAllMovies();
+                    this.listMovies();
                     break;
                 case "3":
-                    //this.movieCount();
+                    this.showMovieCount();
                     break;
                 case "0":
                     quit = true;
@@ -63,13 +63,79 @@ public class UserInterface
             return;
         }
 
-        
+        Genre aGenre;
+
+        System.out.println("Please choose from the following:");
+        System.out.println("1. Comedy");
+        System.out.println("2. Thriller");
+        System.out.println("3. Horror");
+        System.out.println("4. Action");
+        System.out.println("5. Romance");
+        System.out.println("6. Historical");
+
+        userInput = reader.getInput();
+
+        int genreNumber = -1;
+
+        try
+        {
+            genreNumber = Integer.parseInt(userInput);
+        }
+        catch (NumberFormatException exception)
+        {
+            System.err.println("The input could not be parsed to an int.");
+            return;
+        }
+
+        if (genreNumber < 1 || genreNumber > 6)
+        {
+            System.err.println("That was not a valid option.");
+            return;
+        }
+
+        Genre genre;
+
+        switch (genreNumber)
+        {
+            case 1:
+                genre = Genre.COMEDY;
+                break;
+            case 2:
+                genre = Genre.THRILLER;
+                break;
+            case 3:
+                genre = Genre.HORROR;
+                break;
+            case 4:
+                genre = Genre.ACTION;
+                break;
+            case 5:
+                genre = Genre.ROMANCE;
+                break;
+            case 6:
+                genre = Genre.HISTORICAL;
+                break;
+            default:
+                genre = Genre.COMEDY;
+        }
+
+        Movie m = new Movie(title, runningTime, genre);
+        this.library.addMovie(m);
 
     }
 
+    public void listMovies()
+    {
+        this.library.showMovies();
+    }
 
 
+    public void showMovieCount()
+    {
+        int count = this.library.movieCount();
 
+        System.out.println(count);
+    }
 
 
 
